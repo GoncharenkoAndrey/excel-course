@@ -12,9 +12,10 @@ const jsLoaders = () => {
 	const loaders = [
 	{
 		loader: "babel-loader",
-        options: {
-            presets: ['@babel/preset-env']
-        }
+		options: {
+			presets: ["@babel/preset-env"],
+			plugins: ["@babel/plugin-syntax-class-properties", "@babel/plugin-proposal-class-properties"]
+		}
     }];
     return loaders;
 }
@@ -68,14 +69,14 @@ module.exports = {
 	],
 	module: {
 		rules: [
-      	{
-        	test: /\.s[ac]ss$/i,
-        	use: [
-        		{
-        			loader: MiniCssExtractPlugin.loader
-        		},
-          		"css-loader",
-          		"sass-loader"
+			{
+				test: /\.s[ac]ss$/i,
+				use: [
+				{
+					loader: MiniCssExtractPlugin.loader
+				},
+				"css-loader",
+				"sass-loader"
         	],
       	},
       	{
