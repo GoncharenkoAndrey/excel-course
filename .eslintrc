@@ -9,7 +9,7 @@
 		"quotes": "off",
 		"eol-last": "off",
 		"indent": [2, "tab"],
-        	"no-tabs": 0,
+    "no-tabs": 0,
 		"comma-dangle": ["error", "never"],
 		"require-jsdoc": "off",
 		"keyword-spacing": "off"
