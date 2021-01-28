@@ -12,7 +12,9 @@
     "no-tabs": 0,
 		"comma-dangle": ["error", "never"],
 		"require-jsdoc": "off",
-		"keyword-spacing": "off"
+		"keyword-spacing": "off",
+		"max-len": "off",
+		"brace-style": "off"
 	},
 	"extends": ["eslint:recommended", "google"]
 }
