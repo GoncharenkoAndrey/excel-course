@@ -2,20 +2,22 @@ const CODES = {
 	A: 65,
 	Z: 90
 };
-function toCell() {
-	return `<div class="cell" contenteditable></div>`;
+function toCell(value, column) {
+	return `<div class="cell" data-column="${column}" contenteditable></div>`;
 }
-function toColumn(column) {
-	return `<div class="column" data-type="resizable">
+function toColumn(column, index) {
+	return `<div class="column" data-type="resizable" data-column="${index}">
 		${column}
 		<div class="column-resize" data-resize="column"></div>
 	</div>`;
 }
 function createRow(index, content) {
 	const resize = index ? '<div class="row-resize" data-resize="row"></div>' : "";
-	return `<div class="row">
-		<div class="row-info">${index ? index : ''}</div>
-		${resize}
+	return `<div class="row" data-type="resizable">
+		<div class="row-info">
+			${index ? index : ''}
+			${resize}
+		</div>
 		<div class="row-data">${content}</div>
 		
 	</div>`;
