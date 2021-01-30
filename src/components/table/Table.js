@@ -19,22 +19,41 @@ export class Table extends ExcelComponent {
 			const $parent = $resizer.closest('[data-type="resizable"]');
 			const coordinates = $parent.getCoordinates();
 			const type = $resizer.data.resize;
-			const cells = this.$root.findAll(`[data-column="${$parent.data.column}"]`);
+			const sideProperty = type === "column" ? "bottom" : "right";
+			let value;
+			$resizer.css({
+				opacity: 1,
+				[sideProperty]: "-5000px"
+			});
 			document.onmousemove = (e) => {
 				if(type === "column") {
 					const delta = e.pageX - coordinates.right;
-					const value = coordinates.width + delta;
-					$parent.css({width: value + "px"});
-					cells.forEach((element) => element.style.width = value + "px");
+					value = coordinates.width + delta;
+					$resizer.css({right: -delta + "px"});
 				}
 				else {
 					const delta = e.pageY - coordinates.bottom;
-					const value = coordinates.height + delta;
-					$parent.css({height: value + "px"});
+					value = coordinates.height + delta;
+					$resizer.css({
+						bottom: -delta + "px"
+					});
 				}
 			};
 			document.onmouseup = () => {
 				document.onmousemove = null;
+				document.onmouseup = null;
+				if(type === "column") {
+					$parent.css({width: value + "px"});
+					this.$root.findAll(`[data-column="${$parent.data.column}"]`).forEach((element) => element.style.width = value + "px");
+				}
+				else {
+					$parent.css({height: value + "px"});
+				}
+				$resizer.css({
+					opacity: 0,
+					bottom: 0,
+					right: 0
+				});
 			};
 		}
 	}
