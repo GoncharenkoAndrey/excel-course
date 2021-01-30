@@ -19,8 +19,6 @@ function createRow(index, content) {
 			${resize}
 		</div>
 		<div class="row-data">${content}</div>
-		
-	</div>`;
 }
 function toChar(element, index) {
 	return String.fromCharCode(CODES.A + index);
