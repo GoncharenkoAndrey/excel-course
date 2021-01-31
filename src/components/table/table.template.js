@@ -2,8 +2,15 @@ const CODES = {
 	A: 65,
 	Z: 90
 };
-function toCell(value, column) {
-	return `<div class="cell" data-column="${column}" contenteditable></div>`;
+function toCell(row) {
+	return function(value, column) {
+		return `<div class="cell"
+		data-column="${column}"
+		data-id="${row}:${column}"
+		data-type="cell"
+		contenteditable>
+		</div>`;
+	};
 }
 function toColumn(column, index) {
 	return `<div class="column" data-type="resizable" data-column="${index}">
@@ -18,7 +25,7 @@ function createRow(index, content) {
 			${index ? index : ''}
 			${resize}
 		</div>
-		<div class="row-data">${content}</div>
+		<div class="row-data">${content}</div></div>`;
 }
 function toChar(element, index) {
 	return String.fromCharCode(CODES.A + index);
@@ -31,12 +38,12 @@ export function createTable(rowsCount = 15) {
 		.map(toColumn)
 		.join('');
 	rows.push(createRow(null, columns));
-	for(let i = 0; i < rowsCount; i++) {
+	for(let row = 0; row < rowsCount; row++) {
 		const cells = new Array(columnsCount)
 			.fill('')
-			.map(toCell)
+			.map(toCell(row))
 			.join('');
-		rows.push(createRow(i + 1, cells));
+		rows.push(createRow(row + 1, cells));
 	}
 	return rows.join('');
 }
