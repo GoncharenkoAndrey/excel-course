@@ -4,18 +4,18 @@ export class ExcelComponent extends DOMListener {
 		super($root, options.listeners);
 		this.name = options.name || "";
 		this.emitter = options.emitter;
-		this.unsbscribers = [];
+		this.unsubscribers = [];
 		this.prepare();
 	}
 	toHTML() {
 		return "";
 	}
-	$emit(event, args) {
+	$emit(event, ...args) {
 		this.emitter.emit(event, ...args);
 	}
 	$on(event, action) {
-		 const unsubscribe = this.emitter.subscribe(event, action);
-		 this.unsubscribers.push(unsibscribe);
+		const unsubscribe = this.emitter.subscribe(event, action);
+		this.unsubscribers.push(unsubscribe);
 	}
 	prepare() {
 	}
