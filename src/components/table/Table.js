@@ -31,7 +31,6 @@ export class Table extends ExcelComponent {
 			this.selection.current.attr("data-value", value)
 				.text(parse(value));
 			this.updateTextInStore(value);
-		});
 		this.$on("formula:done", () => {
 			this.selection.current.focus();
 		});
@@ -74,6 +73,17 @@ export class Table extends ExcelComponent {
 			}
 			else {
 				this.selectCell($cell);
+			}
+		}
+		else if(isCell(event)) {
+			const $cell = $(event.target);
+			if(event.shiftKey) {
+				const $cells = matrix($cell, this.selection.current)
+					.map((id) => this.$root.find(`[data-id="${id}"]`));
+				this.selection.selectGroup($cells);
+			}
+			else {
+				this.selection.select($cell);
 			}
 		}
 	}

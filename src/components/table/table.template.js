@@ -9,6 +9,15 @@ const CODES = {
 };
 function getWidth(state, index) {
 	return (state[index] || DEFAULT_WIDTH) + "px";
+function toCell(row) {
+	return function(value, column) {
+		return `<div class="cell"
+		data-column="${column}"
+		data-id="${row}:${column}"
+		data-type="cell"
+		contenteditable>
+		</div>`;
+	};
 }
 function getHeight(state, index) {
 	return (state[index] || DEFAULT_HEIGHT) + "px";

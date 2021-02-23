@@ -29,4 +29,7 @@ export class Excel {
 		this.subscriber.subscribeComponents(this.components);
 		this.components.forEach((component) => component.init());
 	}
+	destroy() {
+		this.components.forEach((component) => component.destroy());
+	}
 }
