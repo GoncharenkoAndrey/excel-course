@@ -14,7 +14,8 @@
 		"require-jsdoc": "off",
 		"keyword-spacing": "off",
 		"max-len": "off",
-		"brace-style": "off"
+		"brace-style": "off",
+		"no-invalid-this": "off"
 	},
 	"extends": ["eslint:recommended", "google"]
 }
