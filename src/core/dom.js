@@ -21,6 +21,7 @@ class Dom {
 	}
 	clear() {
 		this.html("");
+		return this;
 	}
 	on(eventType, callback) {
 		this.$el.addEventListener(eventType, callback);

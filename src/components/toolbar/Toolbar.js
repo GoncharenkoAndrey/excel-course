@@ -17,7 +17,7 @@ export class Toolbar extends ExcelStateComponent {
 	}
 	get template() {
 		return createToolbar(this.state);
-  }
+	}
 	toHTML() {
 		return this.template;
 	}
@@ -28,7 +28,5 @@ export class Toolbar extends ExcelStateComponent {
 		const button = $(event.target);
 		const value = JSON.parse(button.data.value);
 		this.$emit("toolbar:applyStyle", value);
-	}
-	onClick() {
 	}
 }
