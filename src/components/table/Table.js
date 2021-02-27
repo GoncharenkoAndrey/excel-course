@@ -1,4 +1,4 @@
-import {ExcelComponent} from "@core/ExcelComponent";
+import {ExcelStateComponent} from "@core/ExcelStateComponent";
 import {$} from "@core/dom";
 import {createTable} from "./table.template";
 import {shouldResize, isCell, matrix, nextSelector} from "./table.function";
@@ -7,10 +7,11 @@ import {TableSelection} from "./TableSelection";
 import {defaultStyles} from "../../constants";
 import {parse} from "../../core/parse";
 import * as actions from "../../redux/actions";
-export class Table extends ExcelComponent {
+export class Table extends ExcelStateComponent {
 	static className = "excel__table";
 	constructor($root, options) {
 		super($root, {
+			name: "table",
 			listeners: ["mousedown", "keydown", "input"],
 			...options
 		});
@@ -31,6 +32,7 @@ export class Table extends ExcelComponent {
 			this.selection.current.attr("data-value", value)
 				.text(parse(value));
 			this.updateTextInStore(value);
+		});
 		this.$on("formula:done", () => {
 			this.selection.current.focus();
 		});
@@ -73,17 +75,6 @@ export class Table extends ExcelComponent {
 			}
 			else {
 				this.selectCell($cell);
-			}
-		}
-		else if(isCell(event)) {
-			const $cell = $(event.target);
-			if(event.shiftKey) {
-				const $cells = matrix($cell, this.selection.current)
-					.map((id) => this.$root.find(`[data-id="${id}"]`));
-				this.selection.selectGroup($cells);
-			}
-			else {
-				this.selection.select($cell);
 			}
 		}
 	}
