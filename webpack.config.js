@@ -9,17 +9,7 @@ const isProduction = process.env.NODE_ENV == "production";
 const isDevelopment = !isProduction;
 const filename = (extension) => isProduction ? `bundle.[hash].${extension}` : `bundle.${extension}`;
 const jsLoaders = () => {
-	const loaders = [
-		{
-			loader: "babel-loader",
-			options: {
-				presets: ["@babel/preset-env"],
-				plugins: ["@babel/plugin-syntax-class-properties",
-					"@babel/plugin-proposal-class-properties",
-					"babel-plugin-dynamic-import-node"]
-			}
-		}
-	];
+	const loaders = ["babel-loader"];
 	return loaders;
 }
 const hot = isDevelopment ? new webpack.HotModuleReplacementPlugin() : undefined;
