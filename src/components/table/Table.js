@@ -1,4 +1,4 @@
-import {ExcelComponent} from "@core/ExcelComponent";
+import {ExcelStateComponent} from "@core/ExcelStateComponent";
 import {$} from "@core/dom";
 import {createTable} from "./table.template";
 import {shouldResize, isCell, matrix, nextSelector} from "./table.function";
@@ -7,10 +7,11 @@ import {TableSelection} from "./TableSelection";
 import {defaultStyles} from "../../constants";
 import {parse} from "../../core/parse";
 import * as actions from "../../redux/actions";
-export class Table extends ExcelComponent {
+export class Table extends ExcelStateComponent {
 	static className = "excel__table";
 	constructor($root, options) {
 		super($root, {
+			name: "table",
 			listeners: ["mousedown", "keydown", "input"],
 			...options
 		});

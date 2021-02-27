@@ -7,19 +7,20 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require("eslint-webpack-plugin");
 const isProduction = process.env.NODE_ENV == "production";
 const isDevelopment = !isProduction;
-const filename = extension => isProduction ? `bundle.[hash].${extension}` : `bundle.${extension}`;
+const filename = (extension) => isProduction ? `bundle.[hash].${extension}` : `bundle.${extension}`;
 const jsLoaders = () => {
 	const loaders = [
-	{
-		loader: "babel-loader",
-		options: {
-			presets: ["@babel/preset-env"],
-			plugins: ["@babel/plugin-syntax-class-properties",
-				"@babel/plugin-proposal-class-properties",
-				"babel-plugin-dynamic-import-node"]
+		{
+			loader: "babel-loader",
+			options: {
+				presets: ["@babel/preset-env"],
+				plugins: ["@babel/plugin-syntax-class-properties",
+					"@babel/plugin-proposal-class-properties",
+					"babel-plugin-dynamic-import-node"]
+			}
 		}
-    }];
-    return loaders;
+	];
+	return loaders;
 }
 const hot = isDevelopment ? new webpack.HotModuleReplacementPlugin() : undefined;
 module.exports = {
@@ -53,14 +54,19 @@ module.exports = {
 		}),
 		new CopyWebpackPlugin({
 			patterns: [
-			{
-				from: path.resolve(__dirname, "src/favicon.ico"),
-				to: path.resolve(__dirname, "dist")
-			}
-		]}),
+				{
+					from: path.resolve(__dirname, "src/favicon.ico"),
+					to: path.resolve(__dirname, "dist")
+				}
+			]
+		}),
 		new MiniCssExtractPlugin(
-		{
-			filename: filename("css")
+			{
+				filename: filename("css")
+			}
+		),
+		new webpack.DefinePlugin({
+			"process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
 		}),
 		hot,
 		new ESLintPlugin({
@@ -74,18 +80,18 @@ module.exports = {
 			{
 				test: /\.s[ac]ss$/i,
 				use: [
-				{
-					loader: MiniCssExtractPlugin.loader
-				},
-				"css-loader",
-				"sass-loader"
-        	],
-      	},
-      	{
-        	test: /\.m?js$/,
-        	exclude: /node_modules/,
-        	use: jsLoaders()
-      	}
-    	],
+					{
+						loader: MiniCssExtractPlugin.loader
+					},
+					"css-loader",
+					"sass-loader"
+				]
+			},
+			{
+				test: /\.m?js$/,
+				exclude: /node_modules/,
+				use: jsLoaders()
+			}
+		]
 	}
 };
