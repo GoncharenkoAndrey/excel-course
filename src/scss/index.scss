@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 @import "header";
 @import "toolbar";
 @import "formula";
 @import "table";
 @import "dashboard";
+@import "loader";
 
 * {
   margin: 0;
